@@ -21,6 +21,7 @@ def test_can_create_shoppingcart():
     # check that it is an instance of the ShoppingCart class
     assert isinstance(cart, ShoppingCart)
 
+# Test function that checks if the __str__ method in the ShoppingCart class is working as expected.
 def test_shoppingcart_str():
     cart = ShoppingCart()
     assert str(cart) == "Shopping Cart with 0 items."
@@ -48,3 +49,24 @@ def test_shoppingcart_add_items():
     assert len(cart.items) == 2
     assert cart.items[1]["product"] == product2
     assert cart.items[1]["quantity"] == 2
+
+# Test that get_total works as intended
+def test_shoppingcart_get_total():
+    cart = ShoppingCart()
+    product1 = Product("Widget", 25.00, 12345)
+    cart.add_items(product1)
+    assert cart.get_total() == 25.00
+    product2 = Product("Gadget", 50.00, 54321)
+    cart.add_items(product2, 2)
+    assert cart.get_total() == 125.00
+
+# Test that display_cart works as intended
+def test_shoppingcart_display_cart(capsys):
+    cart = ShoppingCart()
+    product1 = Product("Widget", 25.00, 12345)
+    cart.add_items(product1)
+    product2 = Product("Gadget", 50.00, 54321)
+    cart.add_items(product2, 2)
+    cart.display_cart()
+    captured = capsys.readouterr()
+    assert captured.out == "Widget (SKU: 12345) - $25.00 - Quantity: 1\nGadget (SKU: 54321) - $50.00 - Quantity: 2\nTotal: $125.00\n"
