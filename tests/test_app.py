@@ -21,8 +21,11 @@ def test_can_create_shoppingcart():
     # check that it is an instance of the ShoppingCart class
     assert isinstance(cart, ShoppingCart)
 
-# Test function that checks if the __str__ method in the ShoppingCart class is working as expected.
 def test_shoppingcart_str():
+    cart = ShoppingCart()
+    assert str(cart) == "Shopping Cart with 0 items."
+
+def test_shoppingcart_additems_with_str():
     cart = ShoppingCart()
     assert str(cart) == "Shopping Cart with 0 items."
     product1 = Product("Widget", 25.00, 12345)
